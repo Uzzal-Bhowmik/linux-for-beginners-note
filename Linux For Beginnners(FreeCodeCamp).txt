@@ -1,0 +1,425 @@
+*** INSTALLING AND UPDATING SOFTWARE PACKAGES
+
+# Debian 
+	- uses Debian Package Management System(or dpkg)
+
+	- apt(advanced package tool) is the higher level package manager
+		- can automatically download and install packages from appropiate repos and install required dependencies
+
+	- dpkg is the underlying package manager
+		- can install, remove packages in gui
+
+	- (apt-get) is basically a user interface built upon apt by various distros
+
+	- 'Software' is a default gui-based app store in ubuntu from where packages can be installed or removed as 		   well
+ 	   'Synaptics' is also a gui-based app store but it's a bit old 
+
+
+# RHEL(red head enterprise linux)
+	- uses RPM(red-head) package management system
+
+	- historically uses Rel or SynOs as the higher level package manager
+	  although Fedora uses Dnf keeping compatibilty with the previously used YUM package manager
+
+
+# SUSE
+	- uses RPM package management system
+	
+	- uses YaST (gui-based) software manager which is a gui based installer or kinda like a app store basically
+
+	- uses zypper interface, similar to apt-get
+
+#### These three package management systems(mentioned above) are discussed in more details below in package management section #####
+
+
+
+
+# Common Applications
+	
+	- Video Editors: Cinepaint, Blender, Cinerella, FFmpeg
+
+	- Graphics Editors: GIMP
+
+# Basic Terminal Utilities
+	
+	- cat: to view or type out a file
+	- head: to show first few lines of a file
+	- tail: to show last few lines of a file
+	- man: to view "Documentation" of a command in which way it works
+	- help: to view only the -options and their usage of a particular command
+	
+
+	- Shell Prompt: Every shell prompt(or simply a command) has three basic components
+			
+			Command	 -Option	   Arguments
+			   ls	   -a	  /home/uzzal
+
+
+	- Sudo (command) gives super_user or root capabilities to the user for advanced system manipulations
+
+
+	- GUI Off/On
+		The Graphical user interface in linux can be turned off and switched to terminal based system using 				commands: 
+			1) Telinit 3 - to switch to terminal based system
+			2) Telinit 5 - to come back to GUI
+
+
+
+# BASIC OPERATIONS USING TERMINAL
+	
+	- Shutdown:
+			  1) shutdown-h [time_constraint]: for shutting down the system
+			  2) shutdown-r : for rebooting
+
+
+	- Locating software packages
+		Software packages are ususally installed in usr/bin/[package_name] in ubuntu based systems
+		
+		But to know the exact location of a particular package: 
+
+			1) which [package_name] : to find the installaion location
+			2) whereis [package_name] : to know the location more broadly
+
+
+	- Navigating Directories
+		
+		pwd 			- print working directory
+		cd [dir_name] - change directory
+		cd .. 		- takes to one level upper dir
+		cd - 		- takes to the previous dir
+		cd / 		- takes to root directory
+		cd ~ 		- takes to the home/user dir
+
+	- Displaying Directories
+		
+		ls 			- lists all the directories inside current working directory
+		ls -a 		- list all the dir including hidden(.) ones
+		tree 		- gives a bird-eye view of the dirs
+
+
+	- Working with text files 
+
+		cat [file_name] 			- prints out a file in read-only mode
+		tac [file_name]			- prints out the file backwards
+		cat -n [file]				- prints the file with line-number
+		less [file]				- shows one page at a time of the file
+		less -N [file]				- shows with line-number
+		head/tail [line_number] 	- prints first few lines / prints last few lines
+		wc 						- prints Word Count of the file
+		touch [file_name]			- can create a text file (no extention works while creating but if you write 								  inside the file then the extention pops up in the file's icons)
+		touch -t [time]			- can modify the time of the file
+
+		echo > [file_name] [content] - can create a file and input the content at the same time
+								   (any extension can be used while creating the file because the file 											content has to be given on the creation of the file)
+
+	
+	- Working with Directories
+
+		mkdir [dir_name] 			- creates a directory
+		rmdir [dir_name]			- remove an empty dir
+		rm [file_name]				- remove a file
+		rm -rf 					- removes folders with files or non-empty folders
+		rm -i 					- prompts/asks before deleting
+
+	- Working with files
+
+		mv [pre_file_name] [new_file_name] 	- renames the file
+		mv [source] [destination] 			- moves or cuts the file
+	
+	- Find/Search files
+
+		locate 							- used to locate a file but uses updatedb(check documentation)
+		find	. -name "filename"				- used to find files same as locate but don't use updatedb
+		
+		
+
+
+
+# Package management
+	
+	Linux package 					Debian Family							SUSE Family	RHEL Family
+	management system			
+
+	
+	High Level					   apt-get							   zypper		    yum/dnf(new)
+	package manager
+																		\			/
+
+
+	Low Level							dpkg										  rpm
+	package manager					 
+									  \                                                /
+
+														
+														Linux System
+
+
+
+ 	- Working of the *level package mananger
+		
+			- Low level: Low level package manager takes care of the underlying things while installing a package					    like running scripts, installing in the system etc
+
+			- High level: High level package manager basically downloads the package from the correct repos, 							search for the dependencies and installs the dependencies as well
+						Users are usually required to deal with the high level to install the packages.
+
+
+# Usage of Package Management System 
+
+
+	- Low Level(dpkg- debian package)
+
+		dpkg can be used to install, remove, purge packages but is not as efficient or elegent to use as high 			level package management tool like apt-get(debian)
+
+		- Common Commands: 
+			dpkg -help 					- to view all the options and their usage
+			dpkg --list					- lists all the packages in the system
+			dpkg --listfiles [package_name] 	- lists/search a particular package
+			dpkg -s						- shows a package's status(if it's installed or not)
+			which [package_name] 			- shows if a package is installed or not
+
+
+	
+	- High Level (apt-get)
+
+		apt-get or apt is the higher level package management tool in debian-based system. It can install, remove 		and a lot of ohter things more efficiently than dpkg.[Note: apt and apt-get is different command]
+
+
+		- Common Commands: 
+
+			sudo apt-cache search [package_name] 		: lists all the packages available with name
+			sudo apt-cache show [package_name]		: show the details of that package
+
+			sudo apt list --installed				: show all the installed packages
+			sudo apt list -a [package_name]			: show all the packages available to install or if 														  installed, then show that the package is installed. 
+
+			sudo apt-get install [package_name]		: installs a package
+			sudo apt-get remove	 [package_name]		: removes an installed package
+
+		###
+			- How to show if a package is installed or not?
+				
+				1) which [package_name]				: will show the installed directory if installed else 													  won't show anything.
+		
+				2) dpkg -s [package_name] 			: (recommended)
+
+				3) sudo apt list -a [package_name]
+
+
+			- How to know if a package is Available to install?
+
+				1) dpkg --listfiles [package_name]	: only shows packages available in the system
+				
+				2) sudo apt list -a [package_name]	: (recommended) because it searches all the available 													   packages and shows if they're installed or not at the 
+												   same time. WoW! Right?
+
+				3) sudo apt-cache search [package_name]
+
+				4) sudo apt-cache show [package_name]
+
+	
+		###
+
+
+
+# Usage of Linux Documentation Sources 
+
+	- There are 4 primary documentation sources commonly used: 
+
+			1) The man(manual) page 	2) GNU INFO 	3) Command help 	4) External Doc Sources(online)
+
+	
+
+	- The man Utility
+		
+		1) man [topic or command_name] 		- displays everything about that topic
+		2) man -f [topic] 					- displays all the chpaters where that topic is discussed
+		   whatis [topic]					- is same as man -f command
+
+		3) man [chapter_name] [topic]		- displays topic from the specified chapter
+		4) man -a [topic] 					- to view all the chapters at once
+
+
+	- The GNU INFO utility
+
+		this is a link-based(like wikipedia), terminal-based documentation source. It has a lot of 						commands/options to go through the documentation so it's better to use help to know it use-tecniques.
+
+		1) info [topic] 					- open docs for the topic
+		2) press H inside info utility		- opens the keybindings of GNU INFO
+		3) n, p, l, u						- commands to go through the nodes(page for a single topic)
+
+			-----------  Common/Important navigation commands - Go to --------------
+
+				Last
+					* l - last i.e. go back. It's like the back button on your web browser. - Go back to the 						last node seen in this window (initially we only have one window).
+
+				Parent
+					* u - up one level in the document. e.g. go from Section 2.1, to Section 2.
+
+				Siblings
+					* n - next node/linked_page on this level/document. e.g. doc 1 -> section 2 -> section 3 																							(not 2.1)
+					* p - previous node on this level/document. e.g. doc 1 -> section 3 -> section 2
+			---------------------------------------------------------------------------------
+		
+
+		4) press / inside info				- open search bar to find anything on the page
+
+
+
+
+	- The --help command
+
+		- The --help command is quicker option to know about certain topics or commands as it mostly lists all 			  the options for that command along with their usage.
+
+
+
+
+# Process Management
+
+	Process management can be compared to the task manager tool in windows
+
+
+	- Working with Priority & Niceness
+		
+		- The higher the niceness, the lower the priority i.e. If nice = +5 , priority = low
+
+		- Commands:
+		
+			ps 					- displays all the priotity and their priority-id(PID) as static value not 									  real-time or live. Although ps command on regular intervels can provide a 									  live-like value.
+			ps lf 				- displays the prioritites in more details
+			ps -elf				- displays in much more details
+			ps aux				- displays memory and cpu percentages as well
+			
+			renice [value] [PID] 	- changes the Niceness of a priority. Although to increase the priority(i.e. 								    decrease the niceness sudo is a must).
+		- GUI: 
+			
+			gnome-system-monitor 	- is the equavalent to the Task Manager in windows.
+
+
+
+# Scheduling task for future
+
+	- at 		: at command can be used to specify exact time when certain non-interactive command will start 				       execution.
+
+	- sleep		: sleep does the same as 'at' but it just delays certain program so that it could be started 					  later than it's actual time.
+
+		
+# Comparing Files and Patching ( diff and patch utility)
+
+
+	- Usage of diff
+
+			diff is basically used to compare two file's differences.
+
+		- Commands: 
+			
+			1) diff [File1] [File2] 	- displays differences between the files
+
+				- Example Output: 
+						
+						1c1,2
+						  < something
+							--------
+						  > something2
+						  >
+						###################
+							It means that to two files to be matched, the File1's line 1 needed to be 									  replaced/changed with File2's line 1,2.
+								
+						a = added, 	c = changed/replaced, 	d = deleted
+				
+						'<' means file1 | '>' means file2
+
+						#######################
+
+
+			2) diff -s file1 file2 		- show if the files are identical or not
+			3) diff --color			- shows the output in colorized format
+
+
+
+	- Usage of patch
+
+		patch is kind of similar to the git's merge option beacause it merges the file1 content with file2 				content in order to make them identical.
+
+		- Command: 
+			
+			1) diff -u file1 file2 > patchfile.patch
+
+			2) patch < patchfile.patch
+
+			# Note: After patching File1's content will be changed/updated according to File2's content. But 					   File2's content won't be changed.
+
+
+
+# Text Editors in Linux:
+
+	- Basic: 
+			1) Nano(Non-GUI)		2) Gedit(GUI)
+
+	- Advanced:
+			1) vi or vim			2) emacs
+
+
+
+# Usage of History Utility in the terminal
+
+		- By using 'history' command, all the previously typed(upto 500 -default) commands can be displayed.
+
+		- Commands:
+		
+			(up-arrow),(down-arrow)	: will bring the previous commands accordingly.
+
+			!!					: will execute the immidiate previous command.
+
+			command [ctrl + r]		: will start reverse-i-search and find the commands(typed before) that match 								  with the current one.
+
+
+
+# Basic Terminal Commands
+
+		ctrl + l					: clears the screen
+		ctrl + d 					: exits from the current terminal winodow
+		ctrl + a 					: goes to the beginning of the line
+		ctrl + e					: goes to the ending of the line
+		ctrl + w					: deletes the word backward from the cursor point
+
+				
+
+
+# File Manipulation Using Terminal
+
+	- Cat Utility
+	
+		'cat' (concatinate) is an often-used command in linux to quickly view a file's content, create a file 			filled with content or combine two files to a new file.
+
+		- Commands: 
+			
+				cat [filename] 			: displays file content
+				cat [file1] [file2]			: displays 2 files content together
+
+				cat > [fileName]			: creates a file with the fileName.
+									   		# Note: inside the file press ctrl+d to save and quit.
+
+				cat << EOF > [fileName]		: creates a file with the fileName and write EOF at the end of the 											  file content to save and quit.
+
+		- Sort utility
+		
+			sort [filename]				: will sort the file content alphabatecally.
+			sort -u [fileName] 				: will sort and remove duplicate occurances from the content.
+
+
+
+
+# Common Networking Tools
+
+		- wget [url]		 				: downloads all contents from a webpage
+		- curl -o filename [url] 			: save details of the url to the file
+
+
+
+--------------------------------------------xxxxxxxx-----------------------------------------------------------
+
+
+
+
+
+
